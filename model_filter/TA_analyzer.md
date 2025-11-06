@@ -226,7 +226,7 @@ python TA_analyzer.py \
 
 ```json
 {
-  "global_l2": 182.63449804,      // 全局L2范数（用于merge_task_vectors.py）
+  "global_l2": 182.63449804,      // 全局L2范数（用于TA_adaptive_merge.py）
   "global_l1": 8521257.21,         // 全局L1范数
   "n_params_considered": 255,      // 考虑的参数数量
   "skipped_params": 0,             // 跳过的参数数量
@@ -381,7 +381,7 @@ Llama-3.2-3B-Instruct-tuned:   0.00    (与base相同或未检测到差异)
 
 ---
 
-## 与 merge_task_vectors.py 配合使用
+## 与 TA_adaptive_merge.py 配合使用
 
 ### 典型工作流
 
@@ -399,7 +399,7 @@ L2_2=31.87
 L2_3=9.26
 
 # 步骤3: 使用L2范数进行智能合并
-python merge_task_vectors.py \
+python TA_adaptive_merge.py \
   --base_model_path /path/to/base \
   --other_model_paths /path/to/model1 /path/to/model2 /path/to/model3 \
   --l2_norms $L2_1 $L2_2 $L2_3 \
@@ -427,7 +427,7 @@ L2_2=$(python -c "import json; print(json.load(open('./analysis/model2/summary.j
 L2_3=$(python -c "import json; print(json.load(open('./analysis/model3/summary.json'))['global_l2'])")
 
 # 3. 执行合并
-python merge_task_vectors.py \
+python TA_adaptive_merge.py \
   --base_model_path $BASE \
   --other_model_paths $MODEL1 $MODEL2 $MODEL3 \
   --l2_norms $L2_1 $L2_2 $L2_3 \
